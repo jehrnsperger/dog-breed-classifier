@@ -11,9 +11,13 @@
 6. [Licensing, Authors, and Acknowledgements](#licensing)
 
 ## Introduction <a name="introduction"></a>
-This Repository provides a web app that detects a dog breed from an uploaded image. If a human is detected
+This Repository provides a web app that detects a dog breed from an uploaded image using a Convolutional Neural Network (CNN). If a human is detected
 instead of a dog, the most resembling dog breed is given. If neither a dog nor a human is detected, an error message
 is displayed.
+
+The CNN was trained using Transfer Learning with Bottleneck Features. The Notebook dog_app.ipynb serves as 
+provides the training of the CNN (amongst others). The file utils.py and the Flask-App in app.py are built 
+on insights/models from the notebook.
 
 ## Prerequisites<a name="prerequisites"></a>
 
@@ -30,9 +34,7 @@ The Face-Detector relies on a pre-saved Haarcascade-model, which must be stored 
 Furthermore, a pre-trained Resnet50 model and a pre-trained VGG19-model must be stored in saved_models/ as .hdf5-files.
 
 ## Instructions<a name="instructions"></a>
-2. Start the Flask web app\
-Provide the filepaths of the messages and categories datasets as the first and second argument respectively, as
-well as the filepath of the database to save the cleaned data to as the third argument. Example:
+Start the Flask web app with 
 ```
 python run app.py
 ```
@@ -41,18 +43,20 @@ Here, you can upload an image and predict the dog breed through a click.
 
 
 ## Main Components <a name="files"></a>
-#### process_data.py
-Reads in two .csv files, 'messages' and 'categories'. The files are merged on an ID, cleaned, and stored as SQL-table in the database DisasterResponse.db.
+#### utils.py
+Contains all the necessary functions for the web app to work. Accesses multiple pre-trained models 
+and bottleneck features (see description above). 
 
-#### train_classifier.py
-Reads the table from DisasterResponse.db and preprocesses the text messages for further use in the NLP-Pipeline. 
-Since each message can be classified for multiple labels, the MultiOutputClassifier serves as a wrapper for the RandomForestClassifier.
-ATF-IDF vectorizer is used for feature extraction of the text data and the model is trained using GridSearchCV. F1-Score, Precision, and Recall are reported on unseen test data 
-and the trained model is saved as classifier.pkl. 
+#### dog_app.ipynb
+The Jupyter Notebook which served as a starting point for this project. Here, the pre-trained models
+used in utils.py are actually trained and more context is provided. The final VGG19 model achieves 
+an accuracy score of about 73%. A higher score of about 83% was achieved with RestNet50; however, this
+model could not be deployed due to some dependency-issues with the bottleneck features in a higher Keras version
+(greater than 2.0.2). Hence, the VGG19 model was used. 
 
-#### run.py
-Generates the Flask-Web-App. The user can input a text message, which is then classified by the trained model. 
-The predicted categories are highlighted. The App also shows some basic plots about the dataset that was used for training.
+#### app.py
+Generates the Flask-Web-App. The user can upload an image and the Neural Network will predict the 
+dog breed (if a dog or even human is detected). 
 
 ## Files<a name="filetree"></a>
 ```
@@ -83,5 +87,6 @@ The predicted categories are highlighted. The App also shows some basic plots ab
 ```
 
 ## Licensing, Authors, Acknowledgements<a name="licensing"></a>
-Licensed under the MIT license and provided by [Udacity](https://www.udacity.com). 
+Licensed under the MIT license and provided by [Udacity](https://www.udacity.com). The test picture
+of the dog above originates from [phys.org](https://phys.org/news/2018-10-good-dog-canine-aptitude-clues.html).
 
