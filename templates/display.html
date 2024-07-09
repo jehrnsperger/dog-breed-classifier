@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detected Image</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .image-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .image-container img {
+        max-width: 300px;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .result {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: rgb(168, 42, 42);
+        color: #fff;
+        border-radius: 8px;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Detected Image</h1>
+    <div class="image-container">
+      <img src="{{ url_for('send_image', filename=filename) }}" alt="Detected Image">
+      <div class="result">{{ result }}</div>
+    </div>
+  </body>
+</html>
