@@ -1,4 +1,6 @@
 
+![Example Image](readme_img.png)
+
 ### Table of Contents
 
 1. [Introduction](#introduction)
@@ -19,7 +21,9 @@ To install the requirements in requirements.txt, run
 ```
 pip install -r requirements.txt
 ```
-The bottleneck features must be accessed in the directory bottleneck_features/ as a .npz-file.
+IMPORTANT: The bottleneck features are too large to be stored on Github, so you
+need to store them in the directory bottleneck_features/ as a .npz-file with the name DogVGG19Data.npz. You can download the 
+bottleneck features [here](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogVGG19Data.npz).
 
 The Face-Detector relies on a pre-saved Haarcascade-model, which must be stored in data/haarcascades/ as an .xml-file.
 
@@ -32,13 +36,8 @@ well as the filepath of the database to save the cleaned data to as the third ar
 ```
 python run app.py
 ```
-Visit the Website at http://127.0.0.1:5000/
-
-2. Run the ML-Pipeline
-provide the filepath of the disaster messages database as the first argument and the filepath of the pickle file to
-save the model to as the second argument. Example: 
-```
-
+Visit the Website at http://127.0.0.1:5000/.
+Here, you can upload an image and predict the dog breed through a click.
 
 
 ## Main Components <a name="files"></a>
