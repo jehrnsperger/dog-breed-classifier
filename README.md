@@ -4,11 +4,12 @@
 ### Table of Contents
 
 1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Instructions](#instructions)
-4. [Main Components](#files)
-5. [Files](#filetree)
-6. [Licensing, Authors, and Acknowledgements](#licensing)
+2. [Definition, Analysis, Conclusion](#process)
+3. [Prerequisites](#prerequisites)
+4. [Instructions](#instructions)
+5. [Main Components](#files)
+6. [Files](#filetree)
+7. [Licensing, Authors, and Acknowledgements](#licensing)
 
 ## Introduction <a name="introduction"></a>
 This Repository provides a web app that detects a dog breed from an uploaded image using a Convolutional Neural Network (CNN). If a human is detected
@@ -18,6 +19,27 @@ is displayed.
 The CNN was trained using Transfer Learning with Bottleneck Features. The Notebook dog_app.ipynb serves as 
 provides the training of the CNN (amongst others). The file utils.py and the Flask-App in app.py are built 
 on insights/models from the notebook.
+
+## Definition, Analysis, Conclusion <a name="process"></a>
+#### Definition
+This project served as a training for applying CNN's to real-world data, specifically images. 
+In the Notebook, multiple models and approaches were tested, which served as a great learning experience.
+
+#### Analysis
+The web app utilises a VGG19 CNN. This model achieved
+an accuracy score of about 73% (see Notebook). A higher score of about 83% was achieved with RestNet50; however, this
+model could not be deployed due to some dependency-issues with the bottleneck features in a higher Keras version
+(greater than 2.0.2). Hence, the VGG19 model was used. 
+For different approaches and models, please refer to the provided Notebook.
+
+#### Conclusion
+One of the most fascinating insights from this project was the use of transfer learning, which 
+improved the test accuracy from 1% to 73% (even 83% with ResNet50). This shows the great advantage
+of training on large datasets, even when predicting entirely different classes (through the removal of 
+the last layers of the trained model). In the future, the provided algorithm could be further improved by
+- detection of both dog AND human in the same picture,
+- detection of multiple dog breeds in the same picture (after reaching a certain confidence threshold)
+- highlighting distinct features directly in the image (e.g. like for the face detector, highlight areas that are distinctive for this specific breed).
 
 ## Prerequisites<a name="prerequisites"></a>
 
@@ -49,10 +71,7 @@ and bottleneck features (see description above).
 
 #### dog_app.ipynb
 The Jupyter Notebook which served as a starting point for this project. Here, the pre-trained models
-used in utils.py are actually trained and more context is provided. The final VGG19 model achieves 
-an accuracy score of about 73%. A higher score of about 83% was achieved with RestNet50; however, this
-model could not be deployed due to some dependency-issues with the bottleneck features in a higher Keras version
-(greater than 2.0.2). Hence, the VGG19 model was used. 
+used in utils.py are actually trained and more context is provided. 
 
 #### app.py
 Generates the Flask-Web-App. The user can upload an image and the Neural Network will predict the 
