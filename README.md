@@ -4,7 +4,7 @@
 ### Table of Contents
 
 1. [Introduction](#introduction)
-2. [Definition, Analysis, Conclusion](#process)
+2. [Insights](#process)
 3. [Prerequisites](#prerequisites)
 4. [Instructions](#instructions)
 5. [Main Components](#files)
@@ -20,12 +20,35 @@ The CNN was trained using Transfer Learning with Bottleneck Features. The Notebo
 provides the training of the CNN (amongst others). The file utils.py and the Flask-App in app.py are built 
 on insights/models from the notebook.
 
-## Definition, Analysis, Conclusion <a name="process"></a>
+## Insights <a name="process"></a>
 #### Definition
 This project served as a training for applying CNN's to real-world data, specifically images. 
 In the Notebook, multiple models and approaches were tested, which served as a great learning experience.
 
-#### Analysis
+#### Occurence of Target Labels (Dog Breeds) in the Training Dataset
+![Histogram of Dog Breeds](Histogram_Dog_Breeds.png)
+The Distribution of Dog Breeds seems to be relatively balanced. While some dog breeds occur more often than
+others, there appears to be no stark outlier. This is an important insight for the further process, specifically
+the metric to be used througout this project.
+
+#### Metric 
+Since the target labels in the training dataset are relatively balanced, ACCURACY is chosen as the metric to be used throughout this Notebook. Furthermore, for multi-label classification tasks like this one, other metrics such as F-1 scores become even more difficult to calculate and interpret. 
+Accuracy is defined as simply the percentage of correctly classified labels, which makes it an easily interpretable metric (contrary to F-1 scores, for instance). 
+
+The wide usage of accuracy in a business context further justifies its usage. Therefore, all models
+in this project are benchmarked on accuracy.
+
+#### Model Comparison
+| Model    | Bottleneck Features | Test Accuracy | Use in Web App | Comment                                                                                                                                                                                         |
+|----------|---------------------|---------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| VGG16    | No                  | 1 %           | No             | Building from scratch achieves low accuracy.                                                                                                                                                    |
+| VGG16    | Yes                 | 73 %          | No             | Adding Bottleneck Features greatly improves metric.                                                                                                                                             |
+| VGG19    | Yes                 | 73 %          | Yes            | Used in Web App because of reliable prediction in local setup.                                                                                                                                  |
+| ResNet50 | Yes                 | 82 %          | No             | Tried using in Web App. Not working because of dependency issues between Bottleneck Feature and newer Keras versions. See known issue in [here](https://knowledge.udacity.com/questions/50372). |
+
+
+
+
 The web app utilises a VGG19 CNN. This model achieved
 an accuracy score of about 73% (see Notebook). A higher score of about 83% was achieved with RestNet50; however, this
 model could not be deployed due to some dependency-issues with the bottleneck features in a higher Keras version
